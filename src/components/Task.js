@@ -5,7 +5,7 @@ const Task = ({ data }) => {
   return (
     <div
       style={{
-        backgroundColor: "#f6f6f2",
+        backgroundColor: "rgba(246, 246, 242, 0.5)",
         marginLeft: "5%",
         width: "90%",
         minHeight: 70,

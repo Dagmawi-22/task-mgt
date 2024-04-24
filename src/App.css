@@ -14,28 +14,24 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: transparent;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 40px;
-  /* align-items: center;
-  justify-content: center; */
+  padding: 20px; /* Adjusted padding */
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
+/* Adjusted styles for the links */
 .App-link {
   color: #61dafb;
+  text-decoration: none; /* Remove underline */
+  margin-top: 10px; /* Add margin to space out links */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App-link:hover {
+  text-decoration: underline; /* Add underline on hover */
 }
 
 .scroll-container {
@@ -44,19 +40,28 @@
   gap: 15px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+  margin-top: 20px; /* Adjusted margin-top */
 }
 
-/* Optionally, you can style the scrollbar */
+/* Adjusted styles for the scrollbar */
 .scroll-container::-webkit-scrollbar {
-  height: 8px; /* Adjust as needed */
+  height: 8px;
 }
 
 .scroll-container::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2); /* Adjust scrollbar thumb color */
-  border-radius: 4px; /* Adjust scrollbar thumb border radius */
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
 }
 
 .scroll-container::-webkit-scrollbar-track {
-  background-color: transparent; /* Adjust scrollbar track color */
+  background-color: transparent;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url("https://c0.wallpaperflare.com/preview/751/2/550/chart-graph-business-finance.jpg");
+  background-size: cover;
+  background-position: center;
+  font-family: Arial, sans-serif;
 }

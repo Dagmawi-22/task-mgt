@@ -6,7 +6,8 @@ const Board = ({ data }) => {
   return (
     <div
       style={{
-        backgroundColor: "gray",
+        border: "1px solid gray",
+        backgroundColor: "transparent",
         minWidth: 350,
         minHeight: 400,
         maxHeight: 600,

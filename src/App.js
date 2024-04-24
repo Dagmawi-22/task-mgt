@@ -1,23 +1,17 @@
 import "./App.css";
 import Board from "./components/Board";
+import { data } from "./dummy";
 
 function App() {
-  const data = {
-    title: "Test",
-    tasks: [
-      {
-        title: "Task II",
-      },
-      {
-        title: "Task III",
-      },
-    ],
-  };
   return (
     <div className="App">
       <header className="App-header">
-        <p>Task mgt</p>
-        <Board data={data} />
+        <p>ABC Workspace</p>
+        <div className="scroll-container">
+          {data?.map((item, index) => (
+            <Board key={index} data={item} />
+          ))}
+        </div>
       </header>
     </div>
   );

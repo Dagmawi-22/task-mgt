@@ -1,4 +1,5 @@
 import React from "react";
+import Avatar from "./Avatar";
 
 const Task = ({ data }) => {
   return (
@@ -11,14 +12,15 @@ const Task = ({ data }) => {
         maxHeight: 100,
         marginBottom: 7,
         borderRadius: 7,
-        alignItems: "center",
-        justifyContent: "center",
-        alignSelf: "center",
         cursor: "pointer",
         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.2)",
+        position: "relative",
       }}
     >
-      <span style={{ color: "#000", fontSize: 18 }}>{data.title}</span>
+      <span style={{ color: "#000", fontSize: 14, textAlign: "left" }}>
+        {data.title}
+      </span>
+      <Avatar title={"AB"} />
     </div>
   );
 };

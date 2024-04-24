@@ -7,7 +7,7 @@ const Board = ({ data }) => {
     <div
       style={{
         backgroundColor: "gray",
-        width: 350,
+        minWidth: 350,
         minHeight: 400,
         maxHeight: 600,
         borderRadius: 15,

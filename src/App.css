@@ -37,3 +37,26 @@
     transform: rotate(360deg);
   }
 }
+
+.scroll-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 15px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+}
+
+/* Optionally, you can style the scrollbar */
+.scroll-container::-webkit-scrollbar {
+  height: 8px; /* Adjust as needed */
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); /* Adjust scrollbar thumb color */
+  border-radius: 4px; /* Adjust scrollbar thumb border radius */
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background-color: transparent; /* Adjust scrollbar track color */
+}

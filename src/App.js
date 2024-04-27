@@ -1,16 +1,20 @@
 import "./App.css";
-import Board from "./components/Board";
-import { data } from "./dummy";
+import TrelloBoard from "./components/Board";
+import { SlPeople } from "react-icons/sl";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>ABC Workspace</p>
+        <p>
+          ABC Workspace
+          <span style={{ cursor: "pointer" }}>
+            <SlPeople className="people-icon" />
+            <span className="badge">5</span>
+          </span>
+        </p>
         <div className="scroll-container">
-          {data?.map((item, index) => (
-            <Board key={index} data={item} />
-          ))}
+          <TrelloBoard />
         </div>
       </header>
     </div>

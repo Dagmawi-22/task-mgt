@@ -1,3 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url("https://c0.wallpaperflare.com/preview/751/2/550/chart-graph-business-finance.jpg");
+  background-size: cover;
+  background-position: center;
+  font-family: "Raleway", Arial, sans-serif;
+}
+
 .App {
   text-align: center;
 }
@@ -13,6 +24,20 @@
   }
 }
 
+.people-icon {
+  margin-left: 7px;
+  cursor: pointer;
+}
+
+.badge {
+  color: rgb(0, 255, 102);
+  font-size: 20px;
+  padding: 2px;
+  margin-left: -2px;
+  margin-top: -5px;
+  font-weight: 900;
+}
+
 .App-header {
   background-color: transparent;
   min-height: 100vh;
@@ -20,7 +45,7 @@
   flex-direction: column;
   padding: 20px; /* Adjusted padding */
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: black;
 }
 
 /* Adjusted styles for the links */

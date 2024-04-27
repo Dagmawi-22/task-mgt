@@ -14,9 +14,9 @@ const Avatar = ({ title }) => {
     <div
       style={{
         backgroundColor: randomColor,
-        width: 30,
-        height: 30,
-        borderRadius: 15,
+        width: 26,
+        height: 26,
+        borderRadius: 13,
         position: "absolute",
         bottom: 5,
         right: 5,

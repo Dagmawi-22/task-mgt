@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ImFileEmpty } from "react-icons/im";
+import Avatar from "./Avatar";
 
 const initialData = {
   lists: {
@@ -141,9 +142,12 @@ const TrelloBoard = () => {
                     borderRadius: "4px",
                     width: 200,
                     fontSize: 14,
+                    cursor: "pointer",
+                    position: "relative",
                   }}
                 >
                   {data.cards[cardId].content}
+                  <Avatar title="AB" />
                 </div>
               ))
             )}

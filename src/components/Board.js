@@ -43,6 +43,16 @@ const TrelloBoard = () => {
     localStorage.setItem("cardData", JSON.stringify(newData));
   };
 
+  const onDeleteCard = (listId, cardId) => {
+    const newData = { ...data };
+    newData.lists[listId].cards = newData.lists[listId].cards.filter(
+      (id) => id !== cardId
+    );
+
+    setData(newData);
+    localStorage.setItem("cardData", JSON.stringify(newData));
+  };
+
   return (
     <div style={{ display: "flex", justifyContent: "space-around" }}>
       {Object.values(data.lists).map((list) => (
@@ -80,7 +90,7 @@ const TrelloBoard = () => {
                   data-index={index}
                   style={{
                     userSelect: "none",
-                    padding: 16,
+                    padding: 20,
                     minWidth: 220,
                     margin: "0 0 8px 0",
                     backgroundColor: "rgba(255, 255, 255, 0.8)",
@@ -94,6 +104,22 @@ const TrelloBoard = () => {
                 >
                   {data.cards[cardId].content}
                   <Avatar title="AB" />
+                  <button
+                    onClick={() => onDeleteCard(list.id, cardId)}
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      right: 0,
+                      padding: 7,
+                      background: "transparent",
+                      border: "none",
+                      cursor: "pointer",
+                      fontSize: 12,
+                      color: "red",
+                    }}
+                  >
+                    X
+                  </button>
                 </div>
               ))
             )}

@@ -5,21 +5,6 @@ const initialData = storedData
   ? JSON.parse(storedData)
   : {
       lists: {
-        "list-1": {
-          id: "list-1",
-          title: "To Do",
-          cards: ["card-1", "card-2", "card-3"],
-        },
-        "list-2": {
-          id: "list-2",
-          title: "In Progress",
-          cards: ["card-4", "card-5"],
-        },
-        "list-3": {
-          id: "list-3",
-          title: "Completed",
-          cards: ["card-6", "card-7"],
-        },
         "list-4": {
           id: "list-4",
           title: "Blocked",
@@ -39,6 +24,21 @@ const initialData = storedData
           id: "list-7",
           title: "Low Priority",
           cards: ["card-14", "card-15"],
+        },
+        "list-1": {
+          id: "list-1",
+          title: "To Do",
+          cards: ["card-1", "card-2", "card-3"],
+        },
+        "list-2": {
+          id: "list-2",
+          title: "In Progress",
+          cards: ["card-4", "card-5"],
+        },
+        "list-3": {
+          id: "list-3",
+          title: "Completed",
+          cards: ["card-6", "card-7"],
         },
       },
       cards: {

@@ -57,7 +57,7 @@ const TrelloBoard = () => {
     <div style={{ display: "flex", justifyContent: "space-around" }}>
       {Object.values(data.lists).map((list) => (
         <div key={list.id} style={{ margin: 8 }}>
-          <h6>{list.title}</h6>
+          <h6 style={{ fontWeight: 500 }}>{list.title}</h6>
           <div
             style={{
               background: "rgba(211, 211, 211, 0.5)",

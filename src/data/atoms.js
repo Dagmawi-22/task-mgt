@@ -1,6 +1,10 @@
 import { atom } from "jotai";
 
 const storedData = localStorage.getItem("cardData");
+const storedUser = localStorage.getItem("userData");
+
+const userData = storedData ? JSON.parse(storedUser) : null;
+
 const initialData = storedData
   ? JSON.parse(storedData)
   : {
@@ -61,6 +65,7 @@ const initialData = storedData
     };
 
 export const boardDataAtom = atom(initialData);
+export const userDataAtom = atom(userData);
 
 // boardDataAtom.onMount = (setAtom) => {
 //   return setAtom((prevAtom) => {

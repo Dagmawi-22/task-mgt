@@ -3,7 +3,7 @@ import { atom } from "jotai";
 const storedData = localStorage.getItem("cardData");
 const storedUser = localStorage.getItem("userData");
 
-const userData = storedData ? JSON.parse(storedUser) : null;
+const userData = storedUser ? JSON.parse(storedUser) : null;
 
 const initialData = storedData
   ? JSON.parse(storedData)

@@ -18,6 +18,7 @@ export default function LoginWithGoogle() {
       const userData = response.data;
       console.log("ressss is", userData);
       setUserData(userData);
+      localStorage.setItem("userData", JSON.stringify(userData));
     } catch (error) {
       console.log("Error logging in via Google:", error);
     }

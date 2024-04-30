@@ -15,7 +15,7 @@ function App() {
         <GoogleOAuthProvider clientId="781628626191-9a7sdn64mj0b0eppfv30inp1i7010fb9.apps.googleusercontent.com">
           <header className="App-header">
             {user && (
-              <p style={{ color: "#fff" }}>
+              <p style={{ color: "#fff", marginTop: 30 }}>
                 ABC Workspace
                 <span style={{ cursor: "pointer" }}>
                   <SlPeople className="people-icon" />

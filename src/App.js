@@ -10,7 +10,7 @@ function App() {
       <Layout>
         <GoogleOAuthProvider clientId="781628626191-9a7sdn64mj0b0eppfv30inp1i7010fb9.apps.googleusercontent.com">
           <header className="App-header">
-            <p>
+            <p style={{ color: "#fff" }}>
               ABC Workspace
               <span style={{ cursor: "pointer" }}>
                 <SlPeople className="people-icon" />

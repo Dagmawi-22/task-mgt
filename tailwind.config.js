@@ -2,7 +2,7 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {}, // Extend Tailwind CSS theme
   },
-  plugins: [],
+  plugins: [], // Additional Tailwind CSS plugins
 };

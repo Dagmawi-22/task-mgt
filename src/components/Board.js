@@ -7,7 +7,6 @@ import LoginWithGoogle from "./GoogleLogin";
 
 const TrelloBoard = () => {
   const [data, setData] = useAtom(boardDataAtom);
-
   const [user, setUser] = useAtom(userDataAtom);
 
   const onDragStart = (event, cardId) => {
@@ -20,7 +19,6 @@ const TrelloBoard = () => {
 
   const onDrop = (event, listId) => {
     const cardId = event.dataTransfer.getData("cardId");
-
     const newData = { ...data };
     const sourceListId = Object.keys(newData.lists).find(
       (key) => newData.lists[key].cards.indexOf(cardId) !== -1
@@ -59,31 +57,17 @@ const TrelloBoard = () => {
   return (
     <>
       {user ? (
-        <div style={{ display: "flex", justifyContent: "space-around" }}>
+        <div className="flex justify-around">
           {Object.values(data.lists).map((list) => (
-            <div key={list.id} style={{ margin: 8 }}>
-              <h6 style={{ fontWeight: 500, color: "#fff" }}>{list.title}</h6>
+            <div key={list.id} className="m-2">
+              <h6 className="font-semibold text-white">{list.title}</h6>
               <div
-                style={{
-                  background: "rgba(211, 211, 211, 0.5)",
-                  padding: 8,
-                  minHeight: "200px",
-                  borderRadius: 7,
-                }}
+                className="bg-gray-400 bg-opacity-50 p-2 min-h-[200px] rounded"
                 onDragOver={(event) => onDragOver(event)}
                 onDrop={(event) => onDrop(event, list.id)}
               >
                 {list.cards.length === 0 ? (
-                  <div
-                    style={{
-                      padding: 16,
-                      textAlign: "center",
-                      color: "#fff",
-                      fontSize: 54,
-                      width: 200,
-                      marginTop: 70,
-                    }}
-                  >
+                  <div className="p-4 text-center text-white text-4xl">
                     <ImFileEmpty />
                   </div>
                 ) : (
@@ -93,35 +77,13 @@ const TrelloBoard = () => {
                       draggable
                       onDragStart={(event) => onDragStart(event, cardId)}
                       data-index={index}
-                      style={{
-                        userSelect: "none",
-                        padding: 20,
-                        minWidth: 220,
-                        margin: "0 0 8px 0",
-                        backgroundColor: "rgba(255, 255, 255, 0.8)",
-                        border: "1px solid lightgrey",
-                        borderRadius: "4px",
-                        width: 200,
-                        fontSize: 14,
-                        cursor: "pointer",
-                        position: "relative",
-                      }}
+                      className="relative p-5 min-w-[220px] m-1 bg-white border border-gray-300 rounded cursor-pointer"
                     >
                       {data.cards[cardId].content}
                       <Avatar title="AB" />
                       <button
                         onClick={() => onDeleteCard(list.id, cardId)}
-                        style={{
-                          position: "absolute",
-                          top: 0,
-                          right: 0,
-                          padding: 7,
-                          background: "transparent",
-                          border: "none",
-                          cursor: "pointer",
-                          fontSize: 12,
-                          color: "red",
-                        }}
+                        className="absolute top-0 right-0 p-2 text-red-500"
                       >
                         X
                       </button>

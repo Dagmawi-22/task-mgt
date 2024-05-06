@@ -17,7 +17,7 @@ function App() {
             {user && (
               <p style={{ color: "#fff", marginTop: 30 }}>
                 ABC Workspace
-                <span style={{ cursor: "pointer" }}>
+                <span className="cursor-pointer">
                   <SlPeople className="people-icon" />
                   <span className="badge">5</span>
                 </span>

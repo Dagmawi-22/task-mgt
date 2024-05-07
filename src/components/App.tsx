@@ -19,7 +19,7 @@ function App() {
       >
         <div className="h-screen flex justify-center items-center">
           <div style={{ marginTop: 10 }}>
-            {!data ? <TrelloBoard /> : <LoginWithGoogle />}
+            {data ? <TrelloBoard /> : <LoginWithGoogle />}
           </div>
         </div>
       </div>

@@ -5,37 +5,22 @@ import { userDataAtom } from "../data/atoms";
 const UserProfile = () => {
   const [user, setUser] = useAtom(userDataAtom);
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: "10px",
-        right: "10px",
-        display: "flex",
-        alignItems: "center",
-        marginBottom: 20,
-      }}
-    >
-      <div style={{ marginRight: "10px" }}>
+    <div className="fixed top-10 right-0 flex items-center mb-20 bg-blue-50 p-15 rounded-l-lg">
+      <div className="mr-2">
         <img
           src={user?.picture}
           alt="Avatar"
-          style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+          className="w-10 h-10 rounded-full border-2 border-white"
         />
       </div>
-      <div style={{ marginRight: "10px", color: "#fff" }}>
+      <div className="mr-2 text-black">
         {user?.given_name + " " + user?.family_name}
       </div>
       <button
         onClick={() => setUser(null)}
-        style={{
-          backgroundColor: "transparent",
-          border: "1px solid #fff",
-          borderRadius: "5px",
-          padding: "5px 10px",
-          cursor: "pointer",
-        }}
+        className="border border-black rounded px-2 py-1 cursor-pointer"
       >
-        <span style={{ color: "#fff" }}>&rarr;</span>
+        <span className="text-black">&rarr;</span>
       </button>
     </div>
   );

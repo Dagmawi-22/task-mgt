@@ -9,7 +9,7 @@ const UserProfile = () => {
     <div className="fixed top-0 left-0 w-full flex items-center justify-between bg-gray-500 p-4 text-white">
       <div className="flex items-center">
         <h1 className="text-xl font-bold mr-4">
-          Welcome{' '}
+          Hi{', '}
           {user?.given_name && user?.family_name
             ? user?.given_name + ' ' + user?.family_name
             : user?.given_name}

@@ -1,6 +1,5 @@
 import { userDataAtom } from 'data/atoms'
 import { useAtom } from 'jotai'
-import React from 'react'
 import LoginWithGoogle from './GoogleLogin'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import TrelloBoard from './Board'

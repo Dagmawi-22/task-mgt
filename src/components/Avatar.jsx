@@ -1,7 +1,6 @@
-import React from "react";
 
-const Avatar = ({ title }) => {
-  const colors = ["#FF5733", "#FFBD33", "#33FF6E", "#339FFF", "#B533FF"];
+const Avatar = ({ title, onClick }) => {
+  const colors = ["bg-red-500", "bg-yellow-500", "bg-green-500", "bg-blue-500", "bg-purple-500"];
 
   const getRandomColor = () => {
     const randomIndex = Math.floor(Math.random() * colors.length);
@@ -12,20 +11,10 @@ const Avatar = ({ title }) => {
 
   return (
     <div
-      style={{
-        backgroundColor: randomColor,
-        width: 26,
-        height: 26,
-        borderRadius: 13,
-        position: "absolute",
-        bottom: 5,
-        right: 5,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+      className={`absolute mt-5 bottom-1 right-1 flex justify-center items-center w-5 h-5 rounded-full ${randomColor}`}
+      onClick={onClick}
     >
-      <span style={{ color: "#fff", fontSize: 11 }}>{title}</span>
+      <span className="text-white text-xs">{title}</span>
     </div>
   );
 };

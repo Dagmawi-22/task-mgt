@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import Avatar from './Avatar'
 import { useAtom } from 'jotai'
 import { boardDataAtom } from '../data/atoms'
@@ -109,7 +109,34 @@ const TrelloBoard: FC = () => {
   }
 
   const [query, setQuery] = useState<string>('')
+  const [filteredData, setFilteredData] = useState<Data>(data)
 
+  useEffect(() => {
+    if (!query) {
+      setFilteredData(data)
+    } else {
+      const filteredLists = { ...data.lists }
+      const filteredCards = Object.keys(data.cards)
+        .filter((cardId) =>
+          data.cards[cardId].content.toLowerCase().includes(query.toLowerCase())
+        )
+        .reduce(
+          (acc, cardId) => {
+            acc[cardId] = data.cards[cardId]
+            return acc
+          },
+          {} as Data['cards']
+        )
+
+      Object.keys(filteredLists).forEach((listId) => {
+        filteredLists[listId].cards = filteredLists[listId].cards.filter(
+          (cardId) => cardId in filteredCards
+        )
+      })
+
+      setFilteredData({ lists: filteredLists, cards: filteredCards })
+    }
+  }, [])
   return (
     <>
       <UserProfile />
@@ -135,16 +162,16 @@ const TrelloBoard: FC = () => {
       <div className="mx-5">
         <div className="w-screen px-5 overflow-x-auto">
           <div className="flex justify-around w-max">
-            {Object.values(data.lists).map((list) => (
+            {Object.values(filteredData?.lists).map((list) => (
               <div key={list.id} className="m-2">
                 <h6 className="font-semibold text-white">{list.title}</h6>
                 <div
-                  className="bg-gray-400 bg-opacity-50 p-2 min-h-[200px] rounded"
+                  className="bg-gray-200 bg-opacity-50 p-2 min-h-[200px] rounded"
                   onDragOver={(event) => onDragOver(event)}
                   onDrop={(event) => onDrop(event, list.id)}
                 >
                   {list.cards.length === 0 ? (
-                    <div className="p-4 text-center text-white text-4xl">
+                    <div className="p-4 text-center text-white text-md">
                       <h4>Nothing found!</h4>
                     </div>
                   ) : (

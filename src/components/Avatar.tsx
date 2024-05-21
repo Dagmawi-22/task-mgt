@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 type AvatarProps = {
   title: string
@@ -28,9 +28,9 @@ const Avatar: FC<AvatarProps> = ({ title }) => {
     <div
       style={{
         backgroundColor: color,
-        width: 26,
-        height: 26,
-        borderRadius: 13,
+        width: 22,
+        height: 22,
+        borderRadius: 11,
         position: 'absolute',
         bottom: 5,
         right: 5,
@@ -38,8 +38,11 @@ const Avatar: FC<AvatarProps> = ({ title }) => {
         justifyContent: 'center',
         alignItems: 'center'
       }}
+      className="mt-5"
     >
-      <span style={{ color: '#fff', fontSize: 11 }}>{title}</span>
+      <span style={{ color: '#fff', fontSize: 11, fontWeight: 800 }}>
+        {title}
+      </span>
     </div>
   )
 }

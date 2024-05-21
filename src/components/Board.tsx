@@ -121,8 +121,11 @@ const TrelloBoard: FC = () => {
     <>
       <UserProfile />
 
-      <div className="flex justify-between items-center p-4">
-        <div className="flex items-center w-full space-x-4">
+      <div
+        className="flex justify-between items-center m-5"
+        // style={{ marginLeft: '10%', width: '80%' }}
+      >
+        <div className="flex items-center mx-5 w-full space-x-4">
           <InputField
             placeholder="Search"
             key="searchInput"
@@ -130,56 +133,60 @@ const TrelloBoard: FC = () => {
             onChange={(e) => setQuery(e.target.value)}
           />
         </div>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center mx-5 space-x-4">
           <AvatarLg title={'A'} onClick={() => {}} />
           <AvatarLg title={'A'} onClick={() => {}} />
         </div>
       </div>
 
-      <div className="w-screen overflow-x-auto">
-        <div className="flex justify-around w-max">
-          {Object.values(data.lists).map((list) => (
-            <div key={list.id} className="m-2">
-              <h6 className="font-semibold text-white">{list.title}</h6>
-              <div
-                className="bg-gray-400 bg-opacity-50 p-2 min-h-[200px] rounded"
-                onDragOver={(event) => onDragOver(event)}
-                onDrop={(event) => onDrop(event, list.id)}
-              >
-                {list.cards.length === 0 ? (
-                  <div className="p-4 text-center text-white text-4xl">
-                    <h4>Nothing found!</h4>
-                  </div>
-                ) : (
-                  list.cards.map((cardId, index) => (
-                    <div
-                      key={cardId}
-                      draggable
-                      onDragStart={(event) => onDragStart(event, cardId)}
-                      data-index={index}
-                      className="relative mt-3 p-5 min-w-[220px] m-1 bg-white border border-gray-300 rounded cursor-pointer"
-                    >
-                      {data.cards[cardId].content}
-                      <Avatar
-                        title={
-                          data.cards[cardId].assigned
-                            ? capitalizeFirstLetter(data.cards[cardId].assigned)
-                            : '-'
-                        }
-                        onClick={() => toggleAssignModal(cardId)}
-                      />
-                      <button
-                        onClick={() => onDeleteCard(list.id, cardId)}
-                        className="absolute top-0 right-0 p-2 text-red-500"
-                      >
-                        X
-                      </button>
+      <div className="mx-5">
+        <div className="w-screen px-5 overflow-x-auto">
+          <div className="flex justify-around w-max">
+            {Object.values(data.lists).map((list) => (
+              <div key={list.id} className="m-2">
+                <h6 className="font-semibold text-white">{list.title}</h6>
+                <div
+                  className="bg-gray-400 bg-opacity-50 p-2 min-h-[200px] rounded"
+                  onDragOver={(event) => onDragOver(event)}
+                  onDrop={(event) => onDrop(event, list.id)}
+                >
+                  {list.cards.length === 0 ? (
+                    <div className="p-4 text-center text-white text-4xl">
+                      <h4>Nothing found!</h4>
                     </div>
-                  ))
-                )}
+                  ) : (
+                    list.cards.map((cardId, index) => (
+                      <div
+                        key={cardId}
+                        draggable
+                        onDragStart={(event) => onDragStart(event, cardId)}
+                        data-index={index}
+                        className="relative mt-3 p-5 min-w-[220px] m-1 bg-white border border-gray-300 rounded cursor-pointer"
+                      >
+                        {data.cards[cardId].content}
+                        <Avatar
+                          title={
+                            data.cards[cardId].assigned
+                              ? capitalizeFirstLetter(
+                                  data.cards[cardId].assigned
+                                )
+                              : '-'
+                          }
+                          onClick={() => toggleAssignModal(cardId)}
+                        />
+                        <button
+                          onClick={() => onDeleteCard(list.id, cardId)}
+                          className="absolute top-0 right-0 p-2 text-red-500"
+                        >
+                          X
+                        </button>
+                      </div>
+                    ))
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 

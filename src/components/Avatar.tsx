@@ -1,10 +1,11 @@
-import React, { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 
 type AvatarProps = {
   title: string
+  onClick: any
 }
 
-const Avatar: FC<AvatarProps> = ({ title }) => {
+const Avatar: FC<AvatarProps> = ({ title, onClick }) => {
   const colors: string[] = [
     '#FF5733',
     '#FFBD33',
@@ -28,9 +29,9 @@ const Avatar: FC<AvatarProps> = ({ title }) => {
     <div
       style={{
         backgroundColor: color,
-        width: 26,
-        height: 26,
-        borderRadius: 13,
+        width: 22,
+        height: 22,
+        borderRadius: 11,
         position: 'absolute',
         bottom: 5,
         right: 5,
@@ -38,8 +39,12 @@ const Avatar: FC<AvatarProps> = ({ title }) => {
         justifyContent: 'center',
         alignItems: 'center'
       }}
+      className="mt-5"
+      onClick={onClick}
     >
-      <span style={{ color: '#fff', fontSize: 11 }}>{title}</span>
+      <span style={{ color: '#fff', fontSize: 11, fontWeight: 700 }}>
+        {title}
+      </span>
     </div>
   )
 }

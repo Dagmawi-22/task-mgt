@@ -1,4 +1,4 @@
-import React, { FC, MouseEventHandler } from 'react'
+import React, { FC, MouseEventHandler, useEffect, useState } from 'react'
 
 type AvatarProps = {
   title: string
@@ -14,17 +14,21 @@ const AvatarLg: FC<AvatarProps> = ({ title, onClick }) => {
     '#B533FF'
   ]
 
+  const [color, setColor] = useState<string>('')
+
   const getRandomColor = () => {
     const randomIndex: number = Math.floor(Math.random() * colors.length)
-    return colors[randomIndex]
+    setColor(colors[randomIndex])
   }
 
-  const randomColor: string = getRandomColor()
+  useEffect(() => {
+    getRandomColor()
+  }, [])
 
   return (
     <div
       style={{
-        backgroundColor: randomColor,
+        backgroundColor: color,
         width: 46,
         height: 46,
         borderRadius: 23,
@@ -35,7 +39,9 @@ const AvatarLg: FC<AvatarProps> = ({ title, onClick }) => {
       onClick={onClick}
       className="cursor-pointer shadow-md border border-2 border-white"
     >
-      <span style={{ color: '#fff', fontSize: 21 }}>{title}</span>
+      <span style={{ color: '#fff', fontSize: 28, fontWeight: 700 }}>
+        {title}
+      </span>
     </div>
   )
 }

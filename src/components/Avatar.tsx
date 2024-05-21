@@ -40,7 +40,7 @@ const Avatar: FC<AvatarProps> = ({ title }) => {
       }}
       className="mt-5"
     >
-      <span style={{ color: '#fff', fontSize: 11, fontWeight: 800 }}>
+      <span style={{ color: '#fff', fontSize: 11, fontWeight: 700 }}>
         {title}
       </span>
     </div>

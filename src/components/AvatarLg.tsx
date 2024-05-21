@@ -39,7 +39,7 @@ const AvatarLg: FC<AvatarProps> = ({ title, onClick }) => {
       onClick={onClick}
       className="cursor-pointer shadow-md border border-2 border-white"
     >
-      <span style={{ color: '#fff', fontSize: 21, fontWeight: 800 }}>
+      <span style={{ color: '#fff', fontSize: 28, fontWeight: 700 }}>
         {title}
       </span>
     </div>

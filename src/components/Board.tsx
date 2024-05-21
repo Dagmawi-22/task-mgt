@@ -5,6 +5,8 @@ import { boardDataAtom } from '../data/atoms'
 import UserProfile from './User'
 import Modal from './Modal'
 import Autocomplete from './Autocomplete'
+import InputField from './Input'
+import AvatarLg from './AvatarLg'
 
 type CardData = {
   id: string
@@ -113,9 +115,27 @@ const TrelloBoard: FC = () => {
     localStorage.setItem('cardData', JSON.stringify(newData))
   }
 
+  const [query, setQuery] = useState<string>('')
+
   return (
     <>
       <UserProfile />
+
+      <div className="flex justify-between items-center p-4">
+        <div className="flex items-center w-full space-x-4">
+          <InputField
+            placeholder="Search"
+            key="searchInput"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
+        <div className="flex items-center space-x-4">
+          <AvatarLg title={'A'} onClick={() => {}} />
+          <AvatarLg title={'A'} onClick={() => {}} />
+        </div>
+      </div>
+
       <div className="w-screen overflow-x-auto">
         <div className="flex justify-around w-max">
           {Object.values(data.lists).map((list) => (

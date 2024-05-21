@@ -5,7 +5,6 @@ import { boardDataAtom } from '../data/atoms'
 import UserProfile from './User'
 import Modal from './Modal'
 import Autocomplete from './Autocomplete'
-import { suggestions } from 'data/suggestions'
 
 type CardData = {
   id: string
@@ -34,10 +33,24 @@ const TrelloBoard: FC = () => {
   const [assignModal, setAssignModal] = useState<boolean>(false)
   const [currentCardId, setCurrentCardId] = useState<string | null>(null)
 
+  const suggestions: string[] = [
+    'Abebe Bikila',
+    'Kenenisa Zenawi',
+    'Ujulu Amare',
+    'Mustefa Hailegiorgis',
+    'Eden Geda',
+    'Yusuf Hailemariam',
+    'Kedija Gebremariam'
+  ]
+
   const toggleAssignModal = (cardId: string | null = null) => {
     setAssignModal(!assignModal)
     setAssignValue('')
     setCurrentCardId(cardId)
+  }
+
+  const capitalizeFirstLetter = (string: string) => {
+    return string.charAt(0).toUpperCase()
   }
 
   const handleAssign = () => {
@@ -64,8 +77,8 @@ const TrelloBoard: FC = () => {
   const onDrop = (event: React.DragEvent<HTMLDivElement>, listId: string) => {
     const cardId = event.dataTransfer.getData('cardId')
     const newData = { ...data }
-    const sourceListId = Object.keys(newData.lists).find(
-      (key) => newData.lists[key].cards.indexOf(cardId) !== -1
+    const sourceListId = Object.keys(newData.lists).find((key) =>
+      newData.lists[key].cards.includes(cardId)
     )
 
     if (sourceListId && sourceListId === listId) {
@@ -73,10 +86,12 @@ const TrelloBoard: FC = () => {
       const dragIndex = cards.indexOf(cardId)
       const hoverIndex = event.currentTarget.getAttribute('data-index')
 
-      cards.splice(dragIndex, 1)
-      cards.splice(Number(hoverIndex), 0, cardId)
+      if (hoverIndex !== null) {
+        cards.splice(dragIndex, 1)
+        cards.splice(Number(hoverIndex), 0, cardId)
 
-      newData.lists[listId].cards = cards
+        newData.lists[listId].cards = cards
+      }
     } else if (sourceListId) {
       newData.lists[sourceListId].cards = newData.lists[
         sourceListId
@@ -126,7 +141,11 @@ const TrelloBoard: FC = () => {
                     >
                       {data.cards[cardId].content}
                       <Avatar
-                        title={data.cards[cardId].assigned[0] || 'A'}
+                        title={
+                          data.cards[cardId].assigned
+                            ? capitalizeFirstLetter(data.cards[cardId].assigned)
+                            : '-'
+                        }
                         onClick={() => toggleAssignModal(cardId)}
                       />
                       <button

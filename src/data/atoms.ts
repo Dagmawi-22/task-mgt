@@ -46,37 +46,61 @@ const initialData = storedData
         }
       },
       cards: {
-        'card-1': { id: 'card-1', content: 'User registration', assigned: '' },
+        'card-1': {
+          id: 'card-1',
+          content: 'User registration',
+          assigned: 'john'
+        },
         'card-2': {
           id: 'card-2',
           content: 'Transaction management',
-          assigned: ''
+          assigned: 'john'
         },
         'card-3': {
           id: 'card-3',
           content: 'Promotion campaigns',
-          assigned: ''
+          assigned: 'john'
         },
-        'card-4': { id: 'card-4', content: 'Admin management', assigned: '' },
-        'card-5': { id: 'card-5', content: 'Content management', assigned: '' },
-        'card-6': { id: 'card-6', content: 'Data analysis', assigned: '' },
-        'card-7': { id: 'card-7', content: 'Bug fixing', assigned: '' },
+        'card-4': {
+          id: 'card-4',
+          content: 'Admin management',
+          assigned: 'john'
+        },
+        'card-5': {
+          id: 'card-5',
+          content: 'Content management',
+          assigned: 'john'
+        },
+        'card-6': { id: 'card-6', content: 'Data analysis', assigned: 'john' },
+        'card-7': { id: 'card-7', content: 'Bug fixing', assigned: 'john' },
         'card-8': {
           id: 'card-8',
           content: 'Feature development',
-          assigned: ''
+          assigned: 'john'
         },
-        'card-9': { id: 'card-9', content: 'Code refactoring', assigned: '' },
-        'card-10': { id: 'card-10', content: 'Testing and QA', assigned: '' },
-        'card-11': { id: 'card-11', content: 'Documentation', assigned: '' },
-        'card-12': { id: 'card-12', content: 'UI/UX design', assigned: '' },
+        'card-9': {
+          id: 'card-9',
+          content: 'Code refactoring',
+          assigned: 'john'
+        },
+        'card-10': {
+          id: 'card-10',
+          content: 'Testing and QA',
+          assigned: 'john'
+        },
+        'card-11': {
+          id: 'card-11',
+          content: 'Documentation',
+          assigned: 'john'
+        },
+        'card-12': { id: 'card-12', content: 'UI/UX design', assigned: 'john' },
         'card-13': {
           id: 'card-13',
           content: 'Performance optimization',
-          assigned: ''
+          assigned: 'john'
         },
-        'card-14': { id: 'card-14', content: 'Deployment', assigned: '' },
-        'card-15': { id: 'card-15', content: 'Maintenance', assigned: '' }
+        'card-14': { id: 'card-14', content: 'Deployment', assigned: 'john' },
+        'card-15': { id: 'card-15', content: 'Maintenance', assigned: 'john' }
       }
     }
 

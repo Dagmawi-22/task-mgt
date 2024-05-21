@@ -8,6 +8,7 @@ import Autocomplete from './Autocomplete'
 import InputField from './Input'
 import AvatarLg from './AvatarLg'
 import { suggestions } from 'data/static'
+import Tooltip from './Tooltip'
 
 type CardData = {
   id: string
@@ -40,6 +41,7 @@ const TrelloBoard: FC = () => {
     setAssignModal(!assignModal)
     setAssignValue('')
     setCurrentCardId(cardId)
+    cardId && setAssignValue(data.cards[cardId].assigned)
   }
 
   const capitalizeFirstLetter = (string: string) => {
@@ -155,16 +157,20 @@ const TrelloBoard: FC = () => {
                         className="relative mt-3 p-5 min-w-[220px] m-1 bg-white border border-gray-300 rounded cursor-pointer"
                       >
                         {data.cards[cardId].content}
-                        <Avatar
-                          title={
-                            data.cards[cardId].assigned
-                              ? capitalizeFirstLetter(
-                                  data.cards[cardId].assigned
-                                )
-                              : '-'
-                          }
-                          onClick={() => toggleAssignModal(cardId)}
-                        />
+                        <div>
+                          <Tooltip text={data.cards[cardId].assigned || ''}>
+                            <Avatar
+                              title={
+                                data.cards[cardId].assigned
+                                  ? capitalizeFirstLetter(
+                                      data.cards[cardId].assigned
+                                    )
+                                  : '-'
+                              }
+                              onClick={() => toggleAssignModal(cardId)}
+                            />
+                          </Tooltip>
+                        </div>
                         <button
                           onClick={() => onDeleteCard(list.id, cardId)}
                           className="absolute top-0 right-0 p-2 text-red-500"

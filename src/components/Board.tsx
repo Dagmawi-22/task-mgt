@@ -7,6 +7,7 @@ import Modal from './Modal'
 import Autocomplete from './Autocomplete'
 import InputField from './Input'
 import AvatarLg from './AvatarLg'
+import { suggestions } from 'data/static'
 
 type CardData = {
   id: string
@@ -34,16 +35,6 @@ const TrelloBoard: FC = () => {
   const [assignValue, setAssignValue] = useState<string>('')
   const [assignModal, setAssignModal] = useState<boolean>(false)
   const [currentCardId, setCurrentCardId] = useState<string | null>(null)
-
-  const suggestions: string[] = [
-    'Abebe Bikila',
-    'Kenenisa Zenawi',
-    'Ujulu Amare',
-    'Mustefa Hailegiorgis',
-    'Eden Geda',
-    'Yusuf Hailemariam',
-    'Kedija Gebremariam'
-  ]
 
   const toggleAssignModal = (cardId: string | null = null) => {
     setAssignModal(!assignModal)

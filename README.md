@@ -2,5 +2,5 @@
 ## Tools Used
 ### React, TypeScript, Vite, TailwindCSS, jotai
 
-![image](https://github.com/Dagmawi-22/task-mgt/assets/109204719/78d90f2b-a38d-4601-a771-0430e9541fc8)
+![image](https://github.com/Dagmawi-22/task-mgt/assets/109204719/1d886a79-2295-4970-892a-7e3d4f806584)
 

@@ -7,7 +7,7 @@ import Modal from './Modal'
 import Autocomplete from './Autocomplete'
 import InputField from './Input'
 import AvatarLg from './AvatarLg'
-import { suggestions } from 'data/static'
+import { suggestions } from '../data/static'
 import Tooltip from './Tooltip'
 
 type CardData = {
@@ -36,12 +36,23 @@ const TrelloBoard: FC = () => {
   const [assignValue, setAssignValue] = useState<string>('')
   const [assignModal, setAssignModal] = useState<boolean>(false)
   const [currentCardId, setCurrentCardId] = useState<string | null>(null)
+  const [newTaskModal, setNewTaskModal] = useState<boolean>(false)
+  const [newTaskContent, setNewTaskContent] = useState<string>('')
+  const [newTaskAssignee, setNewTaskAssignee] = useState<string>('')
 
   const toggleAssignModal = (cardId: string | null = null) => {
     setAssignModal(!assignModal)
     setAssignValue('')
     setCurrentCardId(cardId)
-    cardId && setAssignValue(data.cards[cardId].assigned)
+    if (cardId) {
+      setAssignValue(data.cards[cardId].assigned)
+    }
+  }
+
+  const toggleNewTaskModal = () => {
+    setNewTaskModal(!newTaskModal)
+    setNewTaskContent('')
+    setNewTaskAssignee('')
   }
 
   const capitalizeFirstLetter = (string: string) => {
@@ -55,6 +66,33 @@ const TrelloBoard: FC = () => {
       setData(newData)
       localStorage.setItem('cardData', JSON.stringify(newData))
       toggleAssignModal()
+    }
+  }
+
+  const handleAddTask = () => {
+    if (newTaskContent) {
+      const newCardId = `card-${Date.now()}`
+      const newCard: CardData = {
+        id: newCardId,
+        content: newTaskContent,
+        assigned: newTaskAssignee
+      }
+      const newData = { ...data }
+
+      // Ensure the 'todo' list exists
+      if (!newData.lists['todo']) {
+        newData.lists['todo'] = {
+          id: 'todo',
+          title: 'To Do',
+          cards: []
+        }
+      }
+
+      newData.cards[newCardId] = newCard
+      newData.lists['todo'].cards.push(newCardId)
+      setData(newData)
+      localStorage.setItem('cardData', JSON.stringify(newData))
+      toggleNewTaskModal()
     }
   }
 
@@ -109,11 +147,9 @@ const TrelloBoard: FC = () => {
   }
 
   const [query, setQuery] = useState<string>('')
-  const [filteredData, setFilteredData] = useState<Data>(data)
 
-  useEffect(() => {
+  const filterData = () => {
     if (!query) {
-      setFilteredData(data)
     } else {
       const filteredLists = { ...data.lists }
       const filteredCards = Object.keys(data.cards)
@@ -133,18 +169,17 @@ const TrelloBoard: FC = () => {
           (cardId) => cardId in filteredCards
         )
       })
-
-      setFilteredData({ lists: filteredLists, cards: filteredCards })
     }
-  }, [])
+  }
+  useEffect(() => {
+    filterData()
+  }, [query, data])
+
   return (
     <>
       <UserProfile />
 
-      <div
-        className="flex justify-between items-center m-5"
-        // style={{ marginLeft: '10%', width: '80%' }}
-      >
+      <div className="flex justify-between items-center m-5">
         <div className="flex items-center mx-5 w-full space-x-4">
           <InputField
             placeholder="Search"
@@ -154,15 +189,22 @@ const TrelloBoard: FC = () => {
           />
         </div>
         <div className="flex items-center mx-5 space-x-4">
-          <AvatarLg title={'A'} onClick={() => {}} />
-          <AvatarLg title={'A'} onClick={() => {}} />
+          {/* <Tooltip text="Add new card"> */}
+          <button
+            className="btn bt-sm px-5 py-2 bg-green-500 text-white text-2xl rounded-sm hover:bg-green-700"
+            onClick={toggleNewTaskModal}
+            style={{ marginTop: -11 }}
+          >
+            +
+          </button>
+          {/* </Tooltip> */}
         </div>
       </div>
 
       <div className="mx-5">
         <div className="w-screen px-5 overflow-x-auto">
           <div className="flex justify-around w-max">
-            {Object.values(filteredData?.lists).map((list) => (
+            {Object.values(data?.lists).map((list) => (
               <div key={list.id} className="m-2">
                 <h6 className="font-semibold text-white">{list.title}</h6>
                 <div
@@ -237,6 +279,38 @@ const TrelloBoard: FC = () => {
           className="mt-4 mx-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
         >
           Assign
+        </button>
+      </Modal>
+
+      <Modal
+        isOpen={newTaskModal}
+        onClose={toggleNewTaskModal}
+        title="Add New Task"
+      >
+        <div className="flex flex-col items-center justify-center bg-gray-100">
+          <InputField
+            placeholder="Task Content"
+            key="taskContent"
+            value={newTaskContent}
+            onChange={(e) => setNewTaskContent(e.target.value)}
+          />
+          <Autocomplete
+            suggestions={suggestions}
+            value={newTaskAssignee}
+            onChange={(val) => setNewTaskAssignee(val)}
+          />
+        </div>
+        <button
+          onClick={toggleNewTaskModal}
+          className="mt-4 px-4 py-2 bg-red-200 text-white rounded hover:bg-red-700"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={handleAddTask}
+          className="mt-4 mx-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
+        >
+          Add Task
         </button>
       </Modal>
     </>

@@ -27,11 +27,21 @@ const AvatarLg: FC<AvatarProps> = ({ title, onClick }) => {
 
   return (
     <div
-      className="flex justify-center items-center rounded-full"
-      style={{ backgroundColor: color, width: 46, height: 46 }}
+      style={{
+        backgroundColor: color,
+        width: 46,
+        height: 46,
+        borderRadius: 23,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
       onClick={onClick}
+      className="cursor-pointer shadow-md border border-2 border-white"
     >
-      <span className="text-white text-[28px] font-bold">{title}</span>
+      <span style={{ color: '#fff', fontSize: 28, fontWeight: 700 }}>
+        {title}
+      </span>
     </div>
   )
 }

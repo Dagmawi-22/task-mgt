@@ -27,24 +27,10 @@ const Avatar: FC<AvatarProps> = ({ title, onClick }) => {
 
   return (
     <div
-      style={{
-        backgroundColor: color,
-        width: 22,
-        height: 22,
-        borderRadius: 11,
-        position: 'absolute',
-        bottom: 5,
-        right: 5,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}
-      className="mt-5"
+      className={`bg-[${color}] w-6 h-6 rounded-full absolute bottom-1 right-1 flex justify-center items-center mt-5`}
       onClick={onClick}
     >
-      <span style={{ color: '#fff', fontSize: 11, fontWeight: 700 }}>
-        {title}
-      </span>
+      <span className="text-white text-[11px] font-bold">{title}</span>
     </div>
   )
 }

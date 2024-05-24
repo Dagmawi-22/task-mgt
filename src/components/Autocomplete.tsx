@@ -10,11 +10,13 @@ import { FaSearch } from 'react-icons/fa'
 interface AutocompleteProps {
   suggestions: string[]
   value: string
+  placeholder?: string
   onChange: (value: string) => void
 }
 
 const Autocomplete: React.FC<AutocompleteProps> = ({
   suggestions,
+  placeholder,
   value,
   onChange
 }) => {
@@ -89,7 +91,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           value={value}
-          placeholder="Search..."
+          placeholder={placeholder ? placeholder : 'Search...'}
         />
       </div>
       {showSuggestions && value && (

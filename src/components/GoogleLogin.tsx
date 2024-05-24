@@ -1,5 +1,4 @@
 import { useAtom } from 'jotai'
-import React from 'react'
 import { userDataAtom } from 'data/atoms'
 import { useGoogleLogin } from '@react-oauth/google'
 import axios from 'axios'
@@ -16,7 +15,6 @@ export default function LoginWithGoogle() {
       const url = `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${access_token}`
       const response = await axios.get(url)
       const userData = response.data
-      console.log('ressss is', userData)
       setUserData(userData)
       localStorage.setItem('userData', JSON.stringify(userData))
     } catch (error) {
@@ -29,14 +27,14 @@ export default function LoginWithGoogle() {
       <div className="flex justify-center items-center">
         <button
           onClick={() => googleLogin()}
-          className="flex items-center bg-white text-dark py-2 px-4 rounded shadow hover:bg-gray-800 hover:text-white"
+          className="flex items-center bg-white text-dark py-2 px-4 rounded shadow hover:bg-gray-800 hover:text-white hover:shadow-lg"
         >
           <img
             src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
             alt="Google Icon"
             width={40}
             height={40}
-            className="mr-2"
+            className="mr-1"
           />
           Continue with Google
         </button>

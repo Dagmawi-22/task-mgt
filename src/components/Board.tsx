@@ -261,7 +261,7 @@ const TrelloBoard: FC = () => {
         onClose={() => toggleAssignModal(null)}
         title="Assign task to:"
       >
-        <div className="flex items-center justify-center bg-gray-100">
+        <div className="flex mx-2 items-center justify-center bg-gray-100">
           <Autocomplete
             suggestions={suggestions}
             value={assignValue}
@@ -271,13 +271,13 @@ const TrelloBoard: FC = () => {
         </div>
         <button
           onClick={() => toggleAssignModal(null)}
-          className="mt-4 px-4 py-2 bg-red-200 text-white rounded hover:bg-red-700"
+          className="mt-4 mx-2 px-4 py-2 bg-red-200 text-white rounded hover:bg-red-700"
         >
           Cancel
         </button>
         <button
           onClick={handleAssign}
-          className="mt-4 mx-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
+          className="mt-4 mx-2 px-4 py-2 float-right bg-green-500 text-white rounded hover:bg-green-700"
         >
           Assign
         </button>
@@ -304,13 +304,13 @@ const TrelloBoard: FC = () => {
         </div>
         <button
           onClick={toggleNewTaskModal}
-          className="mt-4 px-4 py-2 bg-red-200 text-white rounded hover:bg-red-700"
+          className="mt-4 mx-2 px-4 py-2 bg-red-200 text-white rounded hover:bg-red-700"
         >
           Cancel
         </button>
         <button
           onClick={handleAddTask}
-          className="mt-4 mx-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700"
+          className="mt-4 mx-2 px-4 py-2 float-right bg-green-500 text-white rounded hover:bg-green-700"
         >
           Add Task
         </button>

@@ -7,8 +7,13 @@ import Modal from './Modal'
 import Autocomplete from './Autocomplete'
 import InputField from './Input'
 import AvatarLg from './AvatarLg'
+import { FiEdit } from 'react-icons/fi'
+import { AiOutlineDelete } from 'react-icons/ai'
+import { BiHide } from 'react-icons/bi'
+
 import { suggestions } from '../data/static'
 import Tooltip from './Tooltip'
+import ClickAwayListener from './Clickaway'
 
 type CardData = {
   id: string
@@ -39,6 +44,7 @@ const TrelloBoard: FC = () => {
   const [newTaskModal, setNewTaskModal] = useState<boolean>(false)
   const [newTaskContent, setNewTaskContent] = useState<string>('')
   const [newTaskAssignee, setNewTaskAssignee] = useState<string>('')
+  const [openCardId, setOpenCardId] = useState<string | null>(null)
 
   const toggleAssignModal = (cardId: string | null = null) => {
     setAssignModal(!assignModal)
@@ -171,6 +177,15 @@ const TrelloBoard: FC = () => {
       })
     }
   }
+
+  const handleToggle = (cardId: string) => {
+    setOpenCardId(openCardId === cardId ? null : cardId)
+  }
+
+  const handleClickAway = () => {
+    setOpenCardId(null)
+  }
+
   useEffect(() => {
     filterData()
   }, [query, data])
@@ -189,7 +204,6 @@ const TrelloBoard: FC = () => {
           />
         </div>
         <div className="flex items-center mx-5 space-x-4">
-          {/* <Tooltip text="Add new card"> */}
           <button
             className="btn bt-sm px-5 py-2 bg-green-500 text-white text-2xl rounded-sm hover:bg-green-700"
             onClick={toggleNewTaskModal}
@@ -197,7 +211,6 @@ const TrelloBoard: FC = () => {
           >
             +
           </button>
-          {/* </Tooltip> */}
         </div>
       </div>
 
@@ -240,12 +253,43 @@ const TrelloBoard: FC = () => {
                             />
                           </Tooltip>
                         </div>
-                        <button
-                          onClick={() => onDeleteCard(list.id, cardId)}
-                          className="absolute top-0 right-0 p-2 text-red-500"
-                        >
-                          X
-                        </button>
+                        <div>
+                          <button
+                            onClick={() => handleToggle(cardId)}
+                            className="absolute top-0 right-0 p-2 text-black-900"
+                          >
+                            ...
+                          </button>
+
+                          {openCardId === cardId && (
+                            <ClickAwayListener onClickAway={handleClickAway}>
+                              <div
+                                className="absolute mt-2 w-48 bg-white border rounded-md shadow-lg"
+                                style={{ zIndex: 1000 }}
+                              >
+                                <ul className="p-2 space-y-2">
+                                  <li className="hover:bg-gray-100 p-1 flex gap-2 rounded-md cursor-pointer">
+                                    <FiEdit className="mt-1 text-xl" />
+                                    Edit
+                                  </li>
+                                  <li
+                                    className="hover:bg-gray-100 flex gap-2 p-1 rounded-md cursor-pointer"
+                                    onClick={() =>
+                                      onDeleteCard(list.id, cardId)
+                                    }
+                                  >
+                                    <AiOutlineDelete className="mt-1 text-xl" />
+                                    Delete
+                                  </li>
+                                  <li className="hover:bg-gray-100 p-1 flex gap-2 rounded-md cursor-pointer">
+                                    <BiHide className="mt-1 text-xl" />
+                                    Hide
+                                  </li>
+                                </ul>
+                              </div>
+                            </ClickAwayListener>
+                          )}
+                        </div>
                       </div>
                     ))
                   )}

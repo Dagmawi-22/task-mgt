@@ -265,6 +265,7 @@ const TrelloBoard: FC = () => {
           <Autocomplete
             suggestions={suggestions}
             value={assignValue}
+            placeholder="Search assignee..."
             onChange={(val) => setAssignValue(val)}
           />
         </div>
@@ -287,9 +288,9 @@ const TrelloBoard: FC = () => {
         onClose={toggleNewTaskModal}
         title="Add New Task"
       >
-        <div className="flex flex-col items-center justify-center bg-gray-100">
+        <div className="flex my-2 mx-2 flex-col justify-center bg-white-100">
           <InputField
-            placeholder="Task Content"
+            placeholder="Task description"
             key="taskContent"
             value={newTaskContent}
             onChange={(e) => setNewTaskContent(e.target.value)}
@@ -297,6 +298,7 @@ const TrelloBoard: FC = () => {
           <Autocomplete
             suggestions={suggestions}
             value={newTaskAssignee}
+            placeholder="Search assignee..."
             onChange={(val) => setNewTaskAssignee(val)}
           />
         </div>

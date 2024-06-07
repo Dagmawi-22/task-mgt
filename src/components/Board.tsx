@@ -11,7 +11,7 @@ import { FiEdit } from 'react-icons/fi'
 import { AiOutlineDelete } from 'react-icons/ai'
 import { BiHide } from 'react-icons/bi'
 
-import { suggestions } from '../data/static'
+import Suggestions from '../data/static'
 import Tooltip from './Tooltip'
 import ClickAwayListener from './Clickaway'
 import { BsEyeFill } from 'react-icons/bs'
@@ -77,7 +77,7 @@ const TrelloBoard: FC = () => {
   }
 
   const capitalizeFirstLetter = (string: string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1)
+    return string.charAt(0).toUpperCase()
   }
 
   const handleAssign = () => {
@@ -363,7 +363,7 @@ const TrelloBoard: FC = () => {
       >
         <div className="flex mx-2 items-center justify-center bg-gray-100">
           <Autocomplete
-            suggestions={suggestions}
+            suggestions={Suggestions()}
             value={assignValue}
             placeholder="Search assignee..."
             onChange={(val) => setAssignValue(val)}
@@ -396,7 +396,7 @@ const TrelloBoard: FC = () => {
             onChange={(e) => setNewTaskContent(e.target.value)}
           />
           <Autocomplete
-            suggestions={suggestions}
+            suggestions={Suggestions()}
             value={newTaskAssignee}
             placeholder="Search assignee..."
             onChange={(val) => setNewTaskAssignee(val)}

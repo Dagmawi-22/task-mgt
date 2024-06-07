@@ -53,6 +53,11 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
     onChange(input)
   }
 
+  const handleFocus = () => {
+    setFilteredSuggestions(suggestions)
+    setShowSuggestions(true)
+  }
+
   const handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
     onChange(e.currentTarget.innerText)
     setFilteredSuggestions([])
@@ -61,20 +66,20 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   }
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.keyCode === 13) {
+    if (e.key === 'Enter') {
       // Enter key
       onChange(filteredSuggestions[activeSuggestionIndex])
       setActiveSuggestionIndex(0)
       setShowSuggestions(false)
-    } else if (e.keyCode === 38) {
+    } else if (e.key === 'ArrowUp') {
       // Up arrow
       if (activeSuggestionIndex === 0) {
         return
       }
       setActiveSuggestionIndex(activeSuggestionIndex - 1)
-    } else if (e.keyCode === 40) {
+    } else if (e.key === 'ArrowDown') {
       // Down arrow
-      if (activeSuggestionIndex - 1 === filteredSuggestions.length) {
+      if (activeSuggestionIndex === filteredSuggestions.length - 1) {
         return
       }
       setActiveSuggestionIndex(activeSuggestionIndex + 1)
@@ -90,11 +95,12 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
           className="h-11 px-2 w-full border-none focus:ring-0"
           onChange={handleChange}
           onKeyDown={handleKeyDown}
+          onFocus={handleFocus}
           value={value}
           placeholder={placeholder ? placeholder : 'Search...'}
         />
       </div>
-      {showSuggestions && value && (
+      {showSuggestions && (
         <ul className="absolute border border-gray-300 bg-white rounded-md shadow-lg mt-1 w-full max-h-60 overflow-y-auto z-10">
           {filteredSuggestions.length ? (
             filteredSuggestions.map((suggestion, index) => {

@@ -14,6 +14,7 @@ import { BiHide } from 'react-icons/bi'
 import { suggestions } from '../data/static'
 import Tooltip from './Tooltip'
 import ClickAwayListener from './Clickaway'
+import { BsEyeFill } from 'react-icons/bs'
 
 type CardData = {
   id: string
@@ -45,6 +46,9 @@ const TrelloBoard: FC = () => {
   const [newTaskContent, setNewTaskContent] = useState<string>('')
   const [newTaskAssignee, setNewTaskAssignee] = useState<string>('')
   const [openCardId, setOpenCardId] = useState<string | null>(null)
+  const [editModal, setEditModal] = useState<boolean>(false)
+  const [editTaskContent, setEditTaskContent] = useState<string>('')
+  const [hiddenCards, setHiddenCards] = useState<string[]>([])
 
   const toggleAssignModal = (cardId: string | null = null) => {
     setAssignModal(!assignModal)
@@ -61,8 +65,19 @@ const TrelloBoard: FC = () => {
     setNewTaskAssignee('')
   }
 
+  const toggleEditModal = (cardId: string | null = null) => {
+    setEditModal(!editModal)
+    if (cardId) {
+      setCurrentCardId(cardId)
+      setEditTaskContent(data.cards[cardId].content)
+    } else {
+      setCurrentCardId(null)
+      setEditTaskContent('')
+    }
+  }
+
   const capitalizeFirstLetter = (string: string) => {
-    return string.charAt(0).toUpperCase()
+    return string.charAt(0).toUpperCase() + string.slice(1)
   }
 
   const handleAssign = () => {
@@ -100,6 +115,24 @@ const TrelloBoard: FC = () => {
       localStorage.setItem('cardData', JSON.stringify(newData))
       toggleNewTaskModal()
     }
+  }
+
+  const handleEditTask = () => {
+    if (currentCardId && editTaskContent) {
+      const newData = { ...data }
+      newData.cards[currentCardId].content = editTaskContent
+      setData(newData)
+      localStorage.setItem('cardData', JSON.stringify(newData))
+      toggleEditModal()
+    }
+  }
+
+  const handleHideCard = (cardId: string) => {
+    setHiddenCards([...hiddenCards, cardId])
+  }
+
+  const handleUnhideAll = () => {
+    setHiddenCards([])
   }
 
   const onDragStart = (
@@ -147,6 +180,7 @@ const TrelloBoard: FC = () => {
     newData.lists[listId].cards = newData.lists[listId].cards.filter(
       (id) => id !== cardId
     )
+    delete newData.cards[cardId]
 
     setData(newData)
     localStorage.setItem('cardData', JSON.stringify(newData))
@@ -156,6 +190,7 @@ const TrelloBoard: FC = () => {
 
   const filterData = () => {
     if (!query) {
+      return data
     } else {
       const filteredLists = { ...data.lists }
       const filteredCards = Object.keys(data.cards)
@@ -175,6 +210,8 @@ const TrelloBoard: FC = () => {
           (cardId) => cardId in filteredCards
         )
       })
+
+      return { lists: filteredLists, cards: filteredCards }
     }
   }
 
@@ -189,6 +226,8 @@ const TrelloBoard: FC = () => {
   useEffect(() => {
     filterData()
   }, [query, data])
+
+  const filteredData = filterData()
 
   return (
     <>
@@ -205,11 +244,20 @@ const TrelloBoard: FC = () => {
         </div>
         <div className="flex items-center mx-5 space-x-4">
           <button
-            className="btn bt-sm px-5 py-2 bg-green-500 text-white text-2xl rounded-sm hover:bg-green-700"
-            onClick={toggleNewTaskModal}
+            className="btn bt-sm px-5 h-12 py-2 bg-white text-black text-2xl rounded-sm hover:bg-green-300 hover:text-white"
+            onClick={handleUnhideAll}
             style={{ marginTop: -11 }}
           >
-            +
+            <span className="px-5 flex" style={{ whiteSpace: 'nowrap' }}>
+              <BsEyeFill className="mt-2 mr-2" /> Show hidden cards
+            </span>
+          </button>
+          <button
+            className="btn bt-sm px-5 py-2 bg-green-500 text-white text-2xl rounded-sm hover:bg-green-700"
+            onClick={toggleNewTaskModal}
+            style={{ marginTop: -11, whiteSpace: 'nowrap' }}
+          >
+            + Add new card
           </button>
         </div>
       </div>
@@ -217,7 +265,7 @@ const TrelloBoard: FC = () => {
       <div className="mx-5">
         <div className="w-screen px-5 overflow-x-auto">
           <div className="flex justify-around w-max">
-            {Object.values(data?.lists).map((list) => (
+            {Object.values(filteredData?.lists).map((list) => (
               <div key={list.id} className="m-2">
                 <h6 className="font-semibold text-white">{list.title}</h6>
                 <div
@@ -230,68 +278,76 @@ const TrelloBoard: FC = () => {
                       <h4>Nothing found!</h4>
                     </div>
                   ) : (
-                    list.cards.map((cardId, index) => (
-                      <div
-                        key={cardId}
-                        draggable
-                        onDragStart={(event) => onDragStart(event, cardId)}
-                        data-index={index}
-                        className="relative mt-3 p-5 min-w-[220px] m-1 bg-white border border-gray-300 rounded cursor-pointer"
-                      >
-                        {data.cards[cardId].content}
-                        <div>
-                          <Tooltip text={data.cards[cardId].assigned || ''}>
-                            <Avatar
-                              title={
-                                data.cards[cardId].assigned
-                                  ? capitalizeFirstLetter(
-                                      data.cards[cardId].assigned
-                                    )
-                                  : '-'
-                              }
-                              onClick={() => toggleAssignModal(cardId)}
-                            />
-                          </Tooltip>
-                        </div>
-                        <div>
-                          <button
-                            onClick={() => handleToggle(cardId)}
-                            className="absolute top-0 right-0 p-2 text-black-900"
-                          >
-                            ...
-                          </button>
+                    list.cards
+                      .filter((cardId) => !hiddenCards.includes(cardId))
+                      .map((cardId, index) => (
+                        <div
+                          key={cardId}
+                          draggable
+                          onDragStart={(event) => onDragStart(event, cardId)}
+                          data-index={index}
+                          className="relative mt-3 p-5 min-w-[220px] m-1 bg-white border border-gray-300 rounded cursor-pointer"
+                        >
+                          {data.cards[cardId].content}
+                          <div>
+                            <Tooltip text={data.cards[cardId].assigned || ''}>
+                              <Avatar
+                                title={
+                                  data.cards[cardId].assigned
+                                    ? capitalizeFirstLetter(
+                                        data.cards[cardId].assigned
+                                      )
+                                    : '-'
+                                }
+                                onClick={() => toggleAssignModal(cardId)}
+                              />
+                            </Tooltip>
+                          </div>
+                          <div>
+                            <button
+                              onClick={() => handleToggle(cardId)}
+                              className="absolute top-0 right-0 p-2 text-black-900"
+                            >
+                              ...
+                            </button>
 
-                          {openCardId === cardId && (
-                            <ClickAwayListener onClickAway={handleClickAway}>
-                              <div
-                                className="absolute mt-2 w-48 bg-white border rounded-md shadow-lg"
-                                style={{ zIndex: 1000 }}
-                              >
-                                <ul className="p-2 space-y-2">
-                                  <li className="hover:bg-gray-100 p-1 flex gap-2 rounded-md cursor-pointer">
-                                    <FiEdit className="mt-1 text-xl" />
-                                    Edit
-                                  </li>
-                                  <li
-                                    className="hover:bg-gray-100 flex gap-2 p-1 rounded-md cursor-pointer"
-                                    onClick={() =>
-                                      onDeleteCard(list.id, cardId)
-                                    }
-                                  >
-                                    <AiOutlineDelete className="mt-1 text-xl" />
-                                    Delete
-                                  </li>
-                                  <li className="hover:bg-gray-100 p-1 flex gap-2 rounded-md cursor-pointer">
-                                    <BiHide className="mt-1 text-xl" />
-                                    Hide
-                                  </li>
-                                </ul>
-                              </div>
-                            </ClickAwayListener>
-                          )}
+                            {openCardId === cardId && (
+                              <ClickAwayListener onClickAway={handleClickAway}>
+                                <div
+                                  className="absolute mt-2 w-48 bg-white border rounded-md shadow-lg"
+                                  style={{ zIndex: 1000 }}
+                                >
+                                  <ul className="p-2 space-y-2">
+                                    <li
+                                      className="hover:bg-gray-100 p-1 flex gap-2 rounded-md cursor-pointer"
+                                      onClick={() => toggleEditModal(cardId)}
+                                    >
+                                      <FiEdit className="mt-1 text-xl" />
+                                      Edit
+                                    </li>
+                                    <li
+                                      className="hover:bg-gray-100 flex gap-2 p-1 rounded-md cursor-pointer"
+                                      onClick={() =>
+                                        onDeleteCard(list.id, cardId)
+                                      }
+                                    >
+                                      <AiOutlineDelete className="mt-1 text-xl" />
+                                      Delete
+                                    </li>
+                                    <li
+                                      className="hover:bg-gray-100 p-1 flex gap-2 rounded-md cursor-pointer"
+                                      onClick={() => handleHideCard(cardId)}
+                                    >
+                                      <BiHide className="mt-1 text-xl" />
+                                      Hide
+                                    </li>
+                                  </ul>
+                                </div>
+                              </ClickAwayListener>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    ))
+                      ))
                   )}
                 </div>
               </div>
@@ -357,6 +413,33 @@ const TrelloBoard: FC = () => {
           className="mt-4 mx-2 px-4 py-2 float-right bg-green-500 text-white rounded hover:bg-green-700"
         >
           Add Task
+        </button>
+      </Modal>
+
+      <Modal
+        isOpen={editModal}
+        onClose={() => toggleEditModal(null)}
+        title="Edit Task"
+      >
+        <div className="flex my-2 mx-2 flex-col justify-center bg-white-100">
+          <InputField
+            placeholder="Task description"
+            key="editTaskContent"
+            value={editTaskContent}
+            onChange={(e) => setEditTaskContent(e.target.value)}
+          />
+        </div>
+        <button
+          onClick={() => toggleEditModal(null)}
+          className="mt-4 mx-2 px-4 py-2 bg-red-200 text-white rounded hover:bg-red-700"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={handleEditTask}
+          className="mt-4 mx-2 px-4 py-2 float-right bg-green-500 text-white rounded hover:bg-green-700"
+        >
+          Save
         </button>
       </Modal>
     </>

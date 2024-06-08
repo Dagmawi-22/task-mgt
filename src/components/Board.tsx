@@ -6,15 +6,14 @@ import UserProfile from './User'
 import Modal from './Modal'
 import Autocomplete from './Autocomplete'
 import InputField from './Input'
-import AvatarLg from './AvatarLg'
 import { FiEdit } from 'react-icons/fi'
 import { AiOutlineDelete } from 'react-icons/ai'
 import { BiHide } from 'react-icons/bi'
-
+import { BsEyeFill } from 'react-icons/bs'
 import Suggestions from '../data/static'
 import Tooltip from './Tooltip'
 import ClickAwayListener from './Clickaway'
-import { BsEyeFill } from 'react-icons/bs'
+import MobileNotice from './MobileNotice'
 
 type CardData = {
   id: string
@@ -232,6 +231,7 @@ const TrelloBoard: FC = () => {
   return (
     <>
       <UserProfile />
+      <MobileNotice />
 
       <div className="flex justify-between items-center m-5">
         <div className="flex items-center mx-5 w-full space-x-4">

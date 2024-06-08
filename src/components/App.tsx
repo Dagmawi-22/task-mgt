@@ -3,12 +3,14 @@ import { useAtom } from 'jotai'
 import LoginWithGoogle from './GoogleLogin'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import TrelloBoard from './Board'
+import { Analytics } from '@vercel/analytics/react'
 
 function App() {
   const [data, setData] = useAtom(userDataAtom)
 
   return (
     <GoogleOAuthProvider clientId="781628626191-9a7sdn64mj0b0eppfv30inp1i7010fb9.apps.googleusercontent.com">
+      <Analytics />
       <div
         className="relative overflow-hidden bg-cover"
         style={{

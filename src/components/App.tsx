@@ -4,7 +4,7 @@ import LoginWithGoogle from './GoogleLogin'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import TrelloBoard from './Board'
 import { Analytics } from '@vercel/analytics/react'
-
+// Vercel Analytics added
 function App() {
   const [data, setData] = useAtom(userDataAtom)
 

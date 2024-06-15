@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import noMobileIcon from './mobile.png'
 
 const MobileNotice: React.FC = () => {
   const [isMobile, setIsMobile] = useState<boolean>(false)
@@ -18,9 +19,16 @@ const MobileNotice: React.FC = () => {
   }
 
   return (
-    <div className="fixed inset-0 bg-gray-500 text-white text-2xl font-bold flex items-center justify-center z-50">
-      <div className="p-4 text-center">
-        Mobile devices are not supported for this board. Please use a DESKTOP.
+    <div className="fixed inset-0 bg-gray-500 text-white text-2xl font-bold flex flex-col items-center justify-center z-50">
+      <div className="flex flex-col items-center">
+        <img
+          src={noMobileIcon}
+          alt="No Mobile Icon"
+          className="h-32 w-32 mb-4"
+        />
+        <div className="p-4 text-center">
+          Mobile devices are not supported for this board. Please use a DESKTOP.
+        </div>
       </div>
     </div>
   )

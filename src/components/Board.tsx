@@ -239,7 +239,8 @@ const TrelloBoard: FC = () => {
             placeholder="Search"
             key="searchInput"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            // onChange={() => {}}
+            onChange={() => {}}
           />
         </div>
         <div className="flex items-center mx-5 space-x-4">

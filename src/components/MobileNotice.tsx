@@ -1,28 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import noMobileIcon from './mobile.png'
 
 const MobileNotice: React.FC = () => {
+
   const [isMobile, setIsMobile] = useState<boolean>(false)
-
-  const checkIfMobile = () => {
-    setIsMobile(window.innerWidth < 1300)
-  }
-
+  const checkIfMobile = () => setIsMobile(window.innerWidth < 1300)
+  
   useEffect(() => {
     checkIfMobile()
     window.addEventListener('resize', checkIfMobile)
     return () => window.removeEventListener('resize', checkIfMobile)
   }, [])
 
-  if (!isMobile) {
-    return null
-  }
+  if (!isMobile) return null
+  
 
   return (
     <div className="fixed inset-0 bg-gray-500 text-white text-2xl font-bold flex flex-col items-center justify-center z-50">
       <div className="flex flex-col items-center">
         <img
-          src={noMobileIcon}
+          src="/mobile.png"
           alt="No Mobile Icon"
           className="h-32 w-32 mb-4"
         />

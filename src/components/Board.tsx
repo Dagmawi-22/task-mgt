@@ -36,7 +36,7 @@ type Data = {
   }
 }
 
-const TrelloBoard: FC = () => {
+const TaskBoard: FC = () => {
   const [data, setData] = useAtom<Data>(boardDataAtom)
   const [assignValue, setAssignValue] = useState<string>('')
   const [assignModal, setAssignModal] = useState<boolean>(false)
@@ -126,13 +126,11 @@ const TrelloBoard: FC = () => {
     }
   }
 
-  const handleHideCard = (cardId: string) => {
-    setHiddenCards([...hiddenCards, cardId])
-  }
+  const handleHideCard = (cardId: string) => setHiddenCards([...hiddenCards, cardId])
+  
 
-  const handleUnhideAll = () => {
-    setHiddenCards([])
-  }
+  const handleUnhideAll = () => setHiddenCards([])
+  
 
   const onDragStart = (
     event: React.DragEvent<HTMLDivElement>,
@@ -141,9 +139,7 @@ const TrelloBoard: FC = () => {
     event.dataTransfer.setData('cardId', cardId)
   }
 
-  const onDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault()
-  }
+  const onDragOver = (event: React.DragEvent<HTMLDivElement>) => event.preventDefault()
 
   const onDrop = (event: React.DragEvent<HTMLDivElement>, listId: string) => {
     const cardId = event.dataTransfer.getData('cardId')
@@ -214,14 +210,9 @@ const TrelloBoard: FC = () => {
     }
   }
 
-  const handleToggle = (cardId: string) => {
-    setOpenCardId(openCardId === cardId ? null : cardId)
-  }
-
-  const handleClickAway = () => {
-    setOpenCardId(null)
-  }
-
+  const handleToggle = (cardId: string) => setOpenCardId(openCardId === cardId ? null : cardId)
+  const handleClickAway = () => setOpenCardId(null)
+  
   useEffect(() => {
     filterData()
   }, [query, data])
@@ -447,4 +438,4 @@ const TrelloBoard: FC = () => {
   )
 }
 
-export default TrelloBoard
+export default TaskBoard
